@@ -1,0 +1,12 @@
+title: "CrownFusion: 3D Dental Crown Generation Using Geometry Images and Latent Diffusion"
+description: "A latent diffusion model that generates 3D dental crown designs from geometry images, conditioned on the surrounding dentition."
+url: "https://crownfusion.github.io"
+
+# Placeholders — update when available
+paper_url: "#"
+arxiv_url: "#"
+code_url: "https://github.com/JohanYe/CrownFusion"
+data_url: "#"
+
+exclude:
+  - README.md
