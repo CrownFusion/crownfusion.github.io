@@ -10,6 +10,7 @@
 <meta property="og:image" content="https://crownfusion.github.io/static/fig_teaser.png">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://crownfusion.github.io/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Source+Sans+3:ital,wght@0,300..700;1,300..700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
@@ -51,15 +52,16 @@ h1.title .sub { display: block; font-family: 'Source Sans 3', sans-serif; font-s
   text-decoration: none; transition: background .15s ease, transform .15s ease; }
 .links a:hover { background: var(--accent-dark); transform: translateY(-1px); }
 .links a[href="#"] { background: #c9beb0; pointer-events: none; }
+.links a[href="#"]::after { content: "· soon"; font-size: 0.78em; opacity: 0.85; }
 .links svg { width: 17px; height: 17px; fill: currentColor; }
 .logos { display: flex; gap: 40px; justify-content: center; align-items: center; flex-wrap: wrap; margin: 30px 0 0; opacity: .75; }
-.logos img { height: 38px; width: auto; }
+.logos img { height: 34px; width: auto; } .logos img[alt*='Simon'] { height: 42px; }
 
 .hero-media { text-align: center; padding: 26px 24px 10px; }
-.hero-media video { width: min(440px, 92%); aspect-ratio: 1; border-radius: 50%;
-  background: radial-gradient(circle at 50% 42%, #fdfbf7 0%, var(--blush) 78%, var(--surface) 100%);
+.hero-media video { width: min(380px, 88%); height: auto; aspect-ratio: 1; border-radius: 50%;
+  background: var(--blush);
   box-shadow: 0 24px 60px -28px rgba(85, 44, 30, 0.45), inset 0 0 0 1px var(--rule); }
-.mediacap { color: var(--muted); font-size: 0.92rem; margin: 12px auto 0; max-width: 620px; }
+.mediacap { text-align: center; color: var(--muted); font-size: 0.92rem; margin: 12px auto 0; max-width: 620px; }
 
 main { padding-bottom: 40px; }
 section { padding: 34px 0; }
@@ -84,7 +86,7 @@ figcaption strong { color: var(--text); }
 .vidgrid video { width: 100%; aspect-ratio: 1; border-radius: 10px; background: #f6f1e8; }
 @media (max-width: 700px) { .vidgrid { grid-template-columns: 1fr; } }
 
-.cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 26px; }
+.cards { display: grid; margin-bottom: 14px; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 26px; }
 @media (max-width: 900px) { .cards { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 520px) { .cards { grid-template-columns: 1fr; } }
 .card { background: var(--surface); border-radius: 12px; padding: 16px 16px 14px; font-size: 0.9rem;
@@ -100,6 +102,15 @@ thead th { background: var(--surface); color: var(--accent-dark); font-weight: 6
   border-bottom: 2px solid var(--accent); font-size: 0.88rem; line-height: 1.35; }
 tbody tr:nth-child(even) { background: #f7f2e9; }
 tbody td strong { color: var(--accent); }
+
+.tablewrap { position: relative; }
+.tablewrap::after { content: ""; position: absolute; top: 0; right: 0; bottom: 0; width: 28px;
+  background: linear-gradient(270deg, var(--bg), transparent); opacity: 0; pointer-events: none; }
+@media (max-width: 700px) {
+  .tablewrap::after { opacity: 1; }
+  table { font-size: 0.78rem; }
+  th, td { padding: 7px 8px; }
+}
 
 pre { background: #2d2721; color: #efe8dc; border-radius: 12px; padding: 18px 20px; overflow-x: auto;
   font-size: 0.82rem; line-height: 1.55; }
@@ -199,7 +210,7 @@ footer strong { color: var(--text); }
 <hr>
 
 <section class="wrap">
-  <h2>The generated crown in 3D</h2>
+  <h2>Generated vs technician-designed</h2>
   <div class="vidgrid">
     <figure>
       <video autoplay loop muted playsinline poster="static/videos/gt_turn_poster.jpg"><source src="static/videos/gt_turn.mp4" type="video/mp4"></video>
@@ -497,5 +508,14 @@ footer strong { color: var(--text); }
   </div>
 </footer>
 
+<script>
+document.querySelectorAll('figure img').forEach(el => {
+  el.style.cursor = 'zoom-in';
+  el.addEventListener('click', () => window.open(el.src, '_blank'));
+});
+if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  document.querySelectorAll('video').forEach(v => { v.removeAttribute('autoplay'); v.pause(); v.controls = true; });
+}
+</script>
 </body>
 </html>
