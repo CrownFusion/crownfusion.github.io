@@ -186,10 +186,10 @@ footer strong { color: var(--text); }
 </header>
 
 <div class="hero-media wrap">
-  <video autoplay loop muted playsinline poster="static/videos/context_drop_poster.jpg" width="480" height="480">
+  <video autoplay loop muted playsinline poster="static/videos/context_drop_first.jpg" width="480" height="480">
     <source src="static/videos/context_drop.mp4" type="video/mp4">
   </video>
-  <p class="mediacap">A CrownFusion crown, rendered as glazed porcelain, seating onto the prepared tooth between its neighbours.</p>
+  <p class="mediacap">The generated crown (rose) seats onto the prepared tooth; the surrounding dentition is rendered as glazed porcelain.</p>
 </div>
 
 
@@ -199,9 +199,9 @@ footer strong { color: var(--text); }
   <figure>
     <img src="static/fig_teaser.png" alt="CrownFusion overview">
     <figcaption>
-      <strong>Overview.</strong> From left to right: (1) Input — prepared tooth (bronze) and surrounding dentition
-      (gray) from an intraoral scan. (2) Baseline — point cloud-based methods with Poisson reconstruction yield
-      overly smooth geometry, eroding occlusal detail. (3) Ours — a diffusion transformer generates a geometry image
+      <strong>Overview.</strong> From left to right: (1) Input: prepared tooth (bronze) and surrounding dentition
+      (gray) from an intraoral scan. (2) Baseline: point cloud-based methods with Poisson reconstruction yield
+      overly smooth geometry, eroding occlusal detail. (3) Ours: a diffusion transformer generates a geometry image
       encoding of the crown surface, which is then meshed to recover the 3D crown, preserving fine occlusal features.
     </figcaption>
   </figure>
@@ -249,7 +249,7 @@ footer strong { color: var(--text); }
   <div class="cards">
     <div class="card">
       <b>Representation</b>
-      <span>CrownImage — teeth as geometry images, preserving cusps and fissures.</span>
+      <span>CrownImage: teeth as geometry images, preserving cusps and fissures.</span>
     </div>
     <div class="card">
       <b>Model</b>
@@ -272,7 +272,7 @@ footer strong { color: var(--text); }
   <h2>Why crown design needs a generative model</h2>
   <p>
     A clinically acceptable crown must achieve adequate occlusal fit with the opposing dentition, maintain functional
-    contact without hyperocclusion, and reflect natural tooth morphology — including well-defined occlusal grooves that
+    contact without hyperocclusion, and reflect natural tooth morphology, including well-defined occlusal grooves that
     direct food flow during mastication. In practice, however, <strong>there is no single correct crown</strong> for a
     given case. Multiple clinically acceptable designs exist, shaped by the technician's training, experience, and
     aesthetic judgement.
@@ -281,7 +281,7 @@ footer strong { color: var(--text); }
     This motivates a generative approach that captures a <em>space</em> of clinically acceptable solutions rather than
     predicting a single outcome. Prior work is limited by its choice of representation: point cloud methods frame crown
     design as shape completion and tend to erode sharp fissures, while depth image methods are confined to a single
-    viewpoint and discard 3D information — for instance, the lingual surface of an antagonist tooth that directly
+    viewpoint and discard 3D information; for instance, the lingual surface of an antagonist tooth that directly
     contacts the generated crown may be entirely occluded.
   </p>
 </section>
@@ -293,7 +293,7 @@ footer strong { color: var(--text); }
   <p>
     We represent a dental crown mesh as a 3-channel geometry image, with each pixel storing an
     <em>(x, y, z)</em> surface coordinate as color. Because a tooth is a topological zero-genus surface, a single
-    global chart suffices — no patch segmentation or stitching required. We flatten the mesh into a disk via
+    global chart suffices, with no patch segmentation or stitching required. We flatten the mesh into a disk via
     boundary-fixed harmonic parameterization, then apply a fisheye-style radial transform that allocates more
     resolution to the center (the occlusal surface) and less to the outer rim (the axial surfaces).
   </p>
@@ -318,14 +318,14 @@ footer strong { color: var(--text); }
   <h2>Method</h2>
   <p>
     CrownFusion is a latent diffusion pipeline operating on CrownImages. A <strong>finetuned FLUX VAE</strong> encodes
-    geometry images into latent codes — finetuning is essential, since CrownImages encode continuous spatial
+    geometry images into latent codes; finetuning is essential, since CrownImages encode continuous spatial
     coordinates rather than color values, and small latent errors map directly to geometric distortions on the
     reconstructed surface.
   </p>
   <p>
     A <strong>Scalable Interpolant Transformer (SiT)</strong>, trained from scratch, generates crowns in this latent
-    space. It is conditioned on the surrounding dentition — the prepared tooth's neighbors, the antagonist, and the
-    antagonist's neighbors — represented as a point cloud and encoded with a jointly trained shape encoder
+    space. It is conditioned on the surrounding dentition (the prepared tooth's neighbors, the antagonist, and the
+    antagonist's neighbors), represented as a point cloud and encoded with a jointly trained shape encoder
     (3DShape2VecSet). The embedding is injected via cross-attention at each denoising step, letting the model infer
     occlusal surface features from the antagonist and cusp/fissure placement from the neighboring teeth. The margin
     line of the prepared tooth anchors the crown's seating position and constrains the geometry from below.
@@ -376,7 +376,7 @@ footer strong { color: var(--text); }
     Relying on a single technician-designed crown as ground truth is problematic, since designs vary substantially
     between technicians. We therefore evaluate <strong>occlusal fit</strong> by measuring proximity between the
     generated occlusal surface and the antagonist dentition (mean distance of the closest 10th-percentile of 30,000
-    sampled antagonist points), and report <strong>intersections</strong> — both count and area — since occlusal
+    sampled antagonist points), and report <strong>intersections</strong>, both count and area, since occlusal
     intersections require significant manual sculpting to correct.
   </p>
   <div class="tablewrap">
@@ -400,7 +400,7 @@ footer strong { color: var(--text); }
   </div>
   <p>
     CrownFusion achieves the closest occlusal alignment to the antagonist teeth, with fewer intersections than both
-    baselines — roughly half the intersection rate of DMC — and substantially smaller intersection area when they
+    baselines, roughly half the intersection rate of DMC, and substantially smaller intersection area when they
     do occur.
   </p>
   <figure>
@@ -418,7 +418,7 @@ footer strong { color: var(--text); }
   <p>
     While marginal ridge height and gross cusp placement are constrained by the surrounding dentition, the occlusal
     surface is the primary locus of design freedom in clinical practice. Our samples vary exactly along these axes.
-    Notably, the features that vary are those most difficult to sculpt manually — existing CAD tools primarily support
+    Notably, the features that vary are those most difficult to sculpt manually; existing CAD tools primarily support
     local adjustments rather than global morphological changes.
   </p>
   <figure>
@@ -452,7 +452,7 @@ footer strong { color: var(--text); }
   </p>
   <p>
     We focus on the FDI 16 tooth (upper right first molar) as it is frequently restored and presents the most complex
-    occlusal morphology of any tooth type — four to five cusps, an oblique ridge, and a detailed fissure pattern —
+    occlusal morphology of any tooth type (four to five cusps, an oblique ridge, and a detailed fissure pattern),
     making it a challenging benchmark. All scans are centered on the FDI 16 crown with the gingiva removed via
     segmentation. Where available, scans include adjacent teeth on the preparation side (FDI 15, 17) and opposing
     teeth on the antagonist side (FDI 45, 46, 47).
@@ -514,7 +514,7 @@ document.querySelectorAll('figure img').forEach(el => {
   el.addEventListener('click', () => window.open(el.src, '_blank'));
 });
 if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  document.querySelectorAll('video').forEach(v => { v.removeAttribute('autoplay'); v.pause(); v.controls = true; });
+  document.querySelectorAll('video').forEach(v => { v.removeAttribute('autoplay'); v.pause(); v.controls = true; v.style.borderRadius = '16px'; });
 }
 </script>
 </body>
