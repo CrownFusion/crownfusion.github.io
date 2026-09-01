@@ -83,6 +83,9 @@ figcaption strong { color: var(--text); }
 
 .vidgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
 .vidgrid figure { text-align: center; padding: 12px; }
+.videofig { text-align: center; }
+.videofig video { width: min(560px, 100%); aspect-ratio: 1; border-radius: 14px; background: #f6f1e8; }
+.videofig.wide video { width: 100%; aspect-ratio: 16/9; }
 .vidgrid video { width: 100%; aspect-ratio: 1; border-radius: 10px; background: #f6f1e8; }
 @media (max-width: 700px) { .vidgrid { grid-template-columns: 1fr; } }
 
@@ -289,6 +292,11 @@ footer strong { color: var(--text); }
     given case. Multiple clinically acceptable designs exist, shaped by the technician's training, experience, and
     aesthetic judgement.
   </p>
+  <figure class="videofig">
+    <video autoplay loop muted playsinline poster="static/videos/bite_story_poster.jpg"><source src="static/videos/bite_story.mp4" type="video/mp4"></video>
+    <figcaption>The problem in one loop: the bite closes, but nothing meets the prepared tooth; the generated crown seats, and the next bite makes contact.</figcaption>
+  </figure>
+
   <p>
     This motivates a generative approach that captures a <em>space</em> of clinically acceptable solutions rather than
     predicting a single outcome. Prior work is limited by its choice of representation: point cloud methods frame crown
@@ -322,6 +330,11 @@ footer strong { color: var(--text); }
     Unlike single-view depth renderings, geometry images retain full 3D geometric information, while supporting far
     higher spatial resolutions than point clouds to better preserve fine-grained, high-curvature tooth features.
   </p>
+  <figure class="videofig wide">
+    <video autoplay loop muted playsinline poster="static/videos/pointcloud_vs_crownimage_poster.jpg"><source src="static/videos/pointcloud_vs_crownimage.mp4" type="video/mp4"></video>
+    <figcaption>The same generated crown in the two representations: the 2,048-point cloud a baseline method consumes, and the CrownImage surface. The fissure network exists only in the latter.</figcaption>
+  </figure>
+
 </section>
 
 <hr>
