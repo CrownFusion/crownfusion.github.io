@@ -28,9 +28,11 @@
 }
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+html { font-size: 18px; }
 body { margin: 0; font-family: 'Source Sans 3', -apple-system, 'Segoe UI', sans-serif;
-  font-size: 18px; line-height: 1.65; color: var(--text); background: var(--bg); }
+  font-size: 1rem; line-height: 1.65; color: var(--text); background: var(--bg); }
 .wrap { max-width: 980px; margin: 0 auto; padding: 0 24px; }
+section.wrap > p, .abstract p { max-width: 73ch; }
 
 header.hero { padding: 72px 0 8px; text-align: center;
   background: linear-gradient(180deg, #f6efe4 0%, var(--bg) 85%); }
