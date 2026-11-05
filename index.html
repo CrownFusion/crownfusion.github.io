@@ -16,6 +16,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Source+Sans+3:ital,wght@0,300..700;1,300..700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
 :root {
+  --page: 932px;
   --bg: #faf7f1;
   --surface: #f2ece1;
   --card: #fffdf9;
@@ -31,8 +32,7 @@ html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
 html { font-size: 18px; }
 body { margin: 0; font-family: 'Source Sans 3', -apple-system, 'Segoe UI', sans-serif;
   font-size: 1rem; line-height: 1.65; color: var(--text); background: var(--bg); }
-.wrap { max-width: 980px; margin: 0 auto; padding: 0 24px; }
-section.wrap > p, .abstract p { max-width: 73ch; }
+.wrap { max-width: calc(var(--page) + 48px); margin: 0 auto; padding: 0 24px; }
 
 header.hero { padding: 72px 0 8px; text-align: center;
   background: linear-gradient(180deg, #f6efe4 0%, var(--bg) 85%); }
@@ -63,19 +63,23 @@ h1.title .sub { display: block; font-family: 'Source Sans 3', sans-serif; font-s
 .hero-media video { width: min(380px, 88%); height: auto; aspect-ratio: 1; border-radius: 50%;
   background: var(--blush);
   box-shadow: 0 24px 60px -28px rgba(85, 44, 30, 0.45), inset 0 0 0 1px var(--rule); }
-.mediacap { text-align: center; color: var(--muted); font-size: 0.92rem; margin: 12px auto 0; max-width: 620px; }
+.mediacap { text-align: center; color: var(--muted); font-size: 0.92rem; margin: 14px auto 0; max-width: 640px; }
 
 main { padding-bottom: 40px; }
 section { padding: 34px 0; }
-h2 { font-family: 'Fraunces', Georgia, serif; font-size: 1.75rem; font-weight: 600;
+section.wrap { padding-top: 40px; padding-bottom: 40px; }
+section.wrap > :first-child { margin-top: 0; }
+section.wrap > :last-child { margin-bottom: 0; }
+@media (max-width: 700px) { section.wrap { padding-top: 30px; padding-bottom: 30px; } }
+h2 { font-family: 'Fraunces', Georgia, serif; font-size: 1.75rem; font-weight: 600; line-height: 1.2;
   letter-spacing: -0.01em; margin: 0 0 18px; color: #241f1a; }
-h3 { font-size: 1.12rem; font-weight: 600; margin: 26px 0 10px; color: var(--accent-dark); }
-hr { border: 0; height: 1px; margin: 0 auto; max-width: 980px;
+h3 { font-size: 1.12rem; font-weight: 600; line-height: 1.35; margin: 26px 0 10px; color: var(--accent-dark); }
+@media (max-width: 700px) { h2 { font-size: 1.5rem; } }
+hr { border: 0; height: 1px; margin: 0 auto; width: calc(100% - 48px); max-width: var(--page);
   background: linear-gradient(90deg, transparent, var(--rule) 12%, var(--rule) 88%, transparent); }
 p { margin: 0 0 14px; }
 em { color: inherit; }
 strong { color: var(--accent-dark); }
-.abstract p { font-size: 1.02rem; }
 
 figure { margin: 22px 0; background: var(--card); border: 1px solid var(--rule);
   border-radius: 14px; padding: 16px 16px 10px; box-shadow: 0 14px 34px -26px rgba(85, 44, 30, 0.35); }
@@ -83,10 +87,11 @@ figure img { width: 100%; height: auto; display: block; border-radius: 6px; }
 figcaption { font-size: 0.9rem; color: var(--muted); line-height: 1.55; padding: 10px 4px 4px; }
 figcaption strong { color: var(--text); }
 
-.vidgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-.vidgrid figure { text-align: center; padding: 12px; }
+.vidgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 22px 0; }
+.vidgrid figure { text-align: center; padding: 12px; margin: 0; }
 .videofig { text-align: center; }
 .videofig video { width: min(560px, 100%); aspect-ratio: 1; border-radius: 14px; background: #f6f1e8; }
+.videofig.wide { text-align: left; }
 .videofig.wide video { width: 100%; aspect-ratio: 16/9; }
 .vidgrid video { width: 100%; aspect-ratio: 1; border-radius: 10px; background: #f6f1e8; }
 @media (max-width: 700px) { .vidgrid { grid-template-columns: 1fr; } }
@@ -97,7 +102,7 @@ figcaption strong { color: var(--text); }
 .card { background: var(--surface); border-radius: 12px; padding: 16px 16px 14px; font-size: 0.9rem;
   line-height: 1.5; border-top: 3px solid var(--accent); }
 .card b { display: block; color: var(--accent-dark); margin-bottom: 6px; font-size: 0.95rem; }
-.card span { color: var(--muted); }
+.card span { color: #665d53; }
 
 .tablewrap { overflow-x: auto; margin: 18px 0; }
 table { border-collapse: collapse; width: 100%; font-size: 0.95rem; background: var(--card);
@@ -216,12 +221,10 @@ footer strong { color: var(--text); }
 
 <section class="wrap">
   <h2>From image to crown</h2>
-  <div class="hero-media" style="padding-top:4px">
-  <video autoplay loop muted playsinline poster="static/videos/crownimage_morph_poster.jpg" width="480" height="480" style="border-radius:18px">
-    <source src="static/videos/crownimage_morph.mp4" type="video/mp4">
-  </video>
-  <p class="mediacap">The CrownImage story in one shot: the position map (the rainbow disk) is what the diffusion model generates; folding each pixel back to its stored 3D position recovers the crown, here seating onto the prepared tooth.</p>
-  </div>
+  <figure class="videofig">
+    <video autoplay loop muted playsinline poster="static/videos/crownimage_morph_poster.jpg"><source src="static/videos/crownimage_morph.mp4" type="video/mp4"></video>
+    <figcaption>The CrownImage story in one shot: the position map (the rainbow disk) is what the diffusion model generates; folding each pixel back to its stored 3D position recovers the crown, here seating onto the prepared tooth.</figcaption>
+  </figure>
 </section>
 
 <hr>
