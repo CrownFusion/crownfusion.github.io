@@ -7,9 +7,14 @@
 <meta name="description" content="A latent diffusion model that generates 3D dental crown designs from geometry images, conditioned on the surrounding dentition.">
 <meta property="og:title" content="CrownFusion">
 <meta property="og:description" content="3D dental crown generation using geometry images and latent diffusion. MICCAI 2026.">
-<meta property="og:image" content="https://crownfusion.github.io/static/fig_teaser.png">
+<meta property="og:url" content="https://crownfusion.github.io/">
+<meta property="og:image" content="https://crownfusion.github.io/static/og_card.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="CrownFusion, MICCAI 2026: paper, code and dataset, above a field of dental crowns from the dataset.">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://crownfusion.github.io/static/og_card.jpg">
 <link rel="canonical" href="https://crownfusion.github.io/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -208,6 +213,9 @@ footer strong { color: var(--text); }
 <main>
 
 <section class="wrap">
+  <figure class="videofig wide">
+    <video controls playsinline preload="metadata" poster="static/videos/teaser_poster.jpg"><source src="static/videos/teaser.mp4" type="video/mp4"></video>
+  </figure>
   <figure>
     <img src="static/fig_teaser.png" alt="CrownFusion overview">
     <figcaption>
@@ -224,7 +232,7 @@ footer strong { color: var(--text); }
 <section class="wrap">
   <h2>From image to crown</h2>
   <figure class="videofig">
-    <video autoplay loop muted playsinline poster="static/videos/crownimage_morph_poster.jpg"><source src="static/videos/crownimage_morph.mp4" type="video/mp4"></video>
+    <video autoplay loop muted playsinline poster="static/videos/crownimage_morph_loop_poster.jpg"><source src="static/videos/crownimage_morph_loop.mp4" type="video/mp4"></video>
     <figcaption>The CrownImage story in one shot: the position map (the rainbow disk) is what the diffusion model generates; folding each pixel back to its stored 3D position recovers the crown, here seating onto the prepared tooth.</figcaption>
   </figure>
 </section>
@@ -291,25 +299,24 @@ footer strong { color: var(--text); }
 <hr>
 
 <section class="wrap">
-  <h2>Why crown design needs a generative model</h2>
+  <h2>Why crown design is hard</h2>
   <p>
-    A clinically acceptable crown must achieve adequate occlusal fit with the opposing dentition, maintain functional
-    contact without hyperocclusion, and reflect natural tooth morphology, including well-defined occlusal grooves that
-    direct food flow during mastication. In practice, however, <strong>there is no single correct crown</strong> for a
-    given case. Multiple clinically acceptable designs exist, shaped by the technician's training, experience, and
-    aesthetic judgement.
+    A crown is hard to design for three reasons. <strong>Fit</strong>: it must meet the opposing dentition with
+    functional contact and without hyperocclusion. <strong>Detail</strong>: it must reflect natural tooth morphology,
+    including well-defined occlusal grooves that direct food flow during mastication. <strong>No single
+    answer</strong>: for a given case there is no single correct crown; multiple clinically acceptable designs exist,
+    shaped by the technician's training, experience, and aesthetic judgement.
   </p>
-  <figure class="videofig">
-    <video autoplay loop muted playsinline poster="static/videos/bite_story_poster.jpg"><source src="static/videos/bite_story.mp4" type="video/mp4"></video>
-    <figcaption>The problem in one loop: the bite closes, but nothing meets the prepared tooth; the generated crown seats, and the next bite makes contact.</figcaption>
+  <figure class="videofig wide">
+    <video loop muted playsinline preload="none" data-inview poster="static/videos/challenges_poster.jpg"><source src="static/videos/challenges.mp4" type="video/mp4"></video>
   </figure>
 
   <p>
-    This motivates a generative approach that captures a <em>space</em> of clinically acceptable solutions rather than
-    predicting a single outcome. Prior work is limited by its choice of representation: point cloud methods frame crown
-    design as shape completion and tend to erode sharp fissures, while depth image methods are confined to a single
-    viewpoint and discard 3D information; for instance, the lingual surface of an antagonist tooth that directly
-    contacts the generated crown may be entirely occluded.
+    The last point motivates a generative approach that captures a <em>space</em> of clinically acceptable solutions
+    rather than predicting a single outcome. Such a model still needs a suitable 3D representation, and here prior
+    work is limited: point cloud methods frame crown design as shape completion and tend to erode sharp fissures,
+    while depth image methods are confined to a single viewpoint and discard 3D information; for instance, the
+    lingual surface of an antagonist tooth that directly contacts the generated crown may be entirely occluded.
   </p>
 </section>
 
@@ -453,6 +460,14 @@ footer strong { color: var(--text); }
     Notably, the features that vary are those most difficult to sculpt manually; existing CAD tools primarily support
     local adjustments rather than global morphological changes.
   </p>
+  <figure class="videofig wide">
+    <video loop muted playsinline preload="none" data-inview poster="static/videos/variants_poster.jpg"><source src="static/videos/variants.mp4" type="video/mp4"></video>
+    <figcaption>
+      The seven generated designs of the figure below, shown in the gap they were generated for. The shapes between
+      two designs are an interpolation of their geometry images, not model output. The bite is opened by 4 mm so
+      that the occlusal surface is visible.
+    </figcaption>
+  </figure>
   <figure>
     <img src="static/fig_variants_squeezed.png" alt="Generated crown variants">
     <figcaption>
@@ -493,6 +508,15 @@ footer strong { color: var(--text); }
     segmentation. Where available, scans include adjacent teeth on the preparation side (FDI 15, 17) and opposing
     teeth on the antagonist side (FDI 45, 46, 47).
   </p>
+  <figure class="videofig wide">
+    <video loop muted playsinline preload="none" data-inview poster="static/videos/dataset_clip_poster.jpg"><source src="static/videos/dataset_clip.mp4" type="video/mp4"></video>
+    <figcaption>
+      Cases of the FDI 16 Crown Dataset: each case is a technician-designed crown (colored rose for the render) with
+      its neighboring teeth and the opposing teeth, which are lifted by 30&deg; to show the crown. The last view
+      shows all 11,513 cases. In the first case, the flat closing surfaces at the cut base of the opposing teeth
+      were rebuilt for the render.
+    </figcaption>
+  </figure>
   <figure>
     <img src="static/fig_dataset.png" alt="FDI 16 Crown Dataset samples">
     <figcaption>Samples from the FDI 16 Crown Dataset.</figcaption>
@@ -554,8 +578,17 @@ document.querySelectorAll('figure img').forEach(el => {
   el.style.cursor = 'zoom-in';
   el.addEventListener('click', () => window.open(el.src, '_blank'));
 });
+const inview = document.querySelectorAll('video[data-inview]');
 if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
   document.querySelectorAll('video').forEach(v => { v.removeAttribute('autoplay'); v.pause(); v.controls = true; v.style.borderRadius = '16px'; });
+} else if ('IntersectionObserver' in window) {
+  // these clips load and play only while they are on screen
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) e.target.play().catch(() => {}); else e.target.pause();
+  }), { threshold: 0.25 });
+  inview.forEach(v => io.observe(v));
+} else {
+  inview.forEach(v => { v.autoplay = true; v.play().catch(() => {}); });
 }
 </script>
 </body>
